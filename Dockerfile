@@ -13,5 +13,8 @@ RUN mix deps.get
 COPY lib lib
 RUN mix release
 
-ENTRYPOINT [ "_build/prod/rel/covid_pager/bin/covid_pager", "start" ]
+ADD aws-lambda-rie-x86_64 /usr/local/bin/aws-lambda-rie
+COPY ./entry_script.sh /entry_script.sh
+
+ENTRYPOINT [ "/entry_script.sh" ]
 CMD [ "Elixir.CovidPager:handler" ]
