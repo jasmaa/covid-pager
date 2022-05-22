@@ -11,7 +11,7 @@ test('Covid pager function is created', () => {
   const template = Template.fromStack(stack);
 
   template.hasResourceProperties('AWS::Lambda::Function', {
-    FunctionName: 'CovidPager'
+    "FunctionName": "CovidPager",
   });
 
   template.hasResourceProperties('AWS::IAM::Policy', {
@@ -24,5 +24,19 @@ test('Covid pager function is created', () => {
         }
       ],
     },
+  });
+});
+
+
+test('Scheduler is created', () => {
+  const app = new cdk.App();
+  // WHEN
+  const stack = new Deployment.DeploymentStack(app, 'MyTestStack');
+  // THEN
+
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties('AWS::Events::Rule', {
+    "ScheduleExpression": "cron(0 8 * * ? *)",
   });
 });
