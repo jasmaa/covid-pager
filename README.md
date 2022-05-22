@@ -4,23 +4,23 @@ Sends Covid metrics to CloudWatch and pages you if they breach a threshold.
 
 ## Development
 
+TODO
+
 ```
 mix deps.get
 iex -S mix
 ```
 
-## Deploy
+## Deploy to AWS
 
-WIP
+Ensure Docker is installed and running.
 
 ```
-docker build -t covid_pager .
-
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ECR repo>
-
-docker tag covid_pager:latest <ECR repo>:latest
-docker push <ECR repo>:latest
+cd deployment
+npm i -g aws-cdk
+cdk deploy
 ```
 
 ## Acknowledgements
 - Data from Johns Hopkins: https://coronavirus.jhu.edu
+- Lambda Elixir runtime: https://github.com/aws-samples/aws-lambda-elixir-runtime

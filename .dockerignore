@@ -24,3 +24,5 @@ covid_pager-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+/deployment
