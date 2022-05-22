@@ -7,7 +7,7 @@ defmodule CovidPager do
   require CovidPager.Constants
 
   @doc """
-  Go through each US state and sees logs positive case count for current date.
+  Go through each US state and log positive case count for current date.
   """
   def handler(request, context) when is_map(request) and is_map(context) do
     :inets.start()
@@ -39,13 +39,31 @@ defmodule CovidPager do
           DateTime.compare(lower_datetime, submission_datetime) == :lt and
             DateTime.compare(upper_datetime, submission_datetime) == :gt
         ) do
-          IO.inspect(us_state)
-          IO.inspect(submission_datetime)
-          IO.inspect(submission)
+          raw_positives = Map.get(submission, "raw_positives")
+          log_case_count(us_state, raw_positives, current_datetime)
         end
       end)
     end)
 
     :ok
+  end
+
+  defp log_case_count(us_state, case_count, current_datetime) do
+    {:ok, _term} =
+      ExAws.Cloudwatch.put_metric_data(
+        [
+          [
+            dimensions: [
+              {"State", us_state}
+            ],
+            metric_name: "CaseCount",
+            timestamp: current_datetime,
+            unit: "Count",
+            value: case_count
+          ]
+        ],
+        "CovidPager"
+      )
+      |> ExAws.request()
   end
 end

@@ -13,4 +13,16 @@ test('Covid pager function is created', () => {
   template.hasResourceProperties('AWS::Lambda::Function', {
     FunctionName: 'CovidPager'
   });
+
+  template.hasResourceProperties('AWS::IAM::Policy', {
+    "PolicyDocument": {
+      "Statement": [
+        {
+          "Action": "cloudwatch:PutMetricData",
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ],
+    },
+  });
 });

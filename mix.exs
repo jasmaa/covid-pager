@@ -24,7 +24,10 @@ defmodule CovidPager.MixProject do
     [
       {:aws_lambda_elixir_runtime, "~> 0.1.0"},
       {:distillery, "~> 2.0"},
-      {:jason, "~> 1.3"}
+      {:jason, "~> 1.3"},
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_cloudwatch, "~> 2.0"},
+      {:hackney, "~> 1.9"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
