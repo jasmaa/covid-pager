@@ -18,12 +18,15 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 
 ## Deploy to AWS
 
+Create `deployment/.env` using sample `deployment/sample.env` and fill in email(s).
+
 Ensure Docker is installed and running.
 
 ```
 cd deployment
 npm i -g aws-cdk
-cdk deploy
+npm install
+cdk deploy --all
 ```
 
 ## Acknowledgements
